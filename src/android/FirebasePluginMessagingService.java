@@ -48,10 +48,19 @@ public class FirebasePluginMessagingService extends FirebaseMessagingService {
             title = remoteMessage.getNotification().getTitle();
             text = remoteMessage.getNotification().getBody();
             id = remoteMessage.getMessageId();
+		
+	    if(remoteMessage.getData().get("nm") != null && remoteMessage.getData().get("nt") != null) {
+                 text = remoteMessage.getData().get("nm");
+                 title = remoteMessage.getData().get("nt");
+            }
         } else {
             title = remoteMessage.getData().get("title");
             text = remoteMessage.getData().get("text");
             id = remoteMessage.getData().get("id");
+	    if(remoteMessage.getData().get("nm") != null && remoteMessage.getData().get("nt") != null) {
+                 text = remoteMessage.getData().get("nm");
+                 title = remoteMessage.getData().get("nt");
+            }
         }
 
         if(TextUtils.isEmpty(id)){
