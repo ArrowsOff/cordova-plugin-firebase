@@ -78,6 +78,12 @@ public class FirebasePluginMessagingService extends FirebaseMessagingService {
             title = remoteMessage.getNotification().getTitle();
             text = remoteMessage.getNotification().getBody();
             id = remoteMessage.getMessageId();
+
+	        if(remoteMessage.getData().get("nm") != null && remoteMessage.getData().get("nt") != null) {
+                 text = remoteMessage.getData().get("nm");
+                 title = remoteMessage.getData().get("nt");
+            }
+
         } else {
             title = data.get("title");
             text = data.get("text");
@@ -87,6 +93,11 @@ public class FirebasePluginMessagingService extends FirebaseMessagingService {
 
             if (TextUtils.isEmpty(text)) {
                 text = data.get("body");
+            }
+
+            if(data.get("nm") != null && data.get("nt") != null) {
+                 text = data.get("nm");
+                 title = data.get("nt");
             }
         }
 
@@ -170,7 +181,7 @@ public class FirebasePluginMessagingService extends FirebaseMessagingService {
             if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {
                 int accentID = getResources().getIdentifier("accent", "color", getPackageName());
                 notificationBuilder.setColor(getResources().getColor(accentID, null));
-                
+
             }
 
             Notification notification = notificationBuilder.build();
